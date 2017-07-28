@@ -1,5 +1,4 @@
 select  
-       DISTINCT
        '减类' as `补贴类型`,
        aa.datekey,  ---日期
        aa.sale_platform, ---平台
