@@ -1,4 +1,4 @@
---用户浏览几个POI几个deal的访购率（点评侧）
+--用户浏览几个POI几个deal的访购率（点评侧）-有问题需要修正
 select 
       ll.datekey,
       concat

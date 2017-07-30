@@ -1,4 +1,4 @@
-select substr(a.datekey,1,6)as `月份`,
+select a.datekey as `日期`,
       d.area_name_mp,--区域
   d.province_name,--省份
   d.city_name,--城市
@@ -20,7 +20,7 @@ where a.datekey between '$begindatekey' and '$enddatekey'
 and a.bu_code in (11020,11021,11022)
 and c.merge_id=0 
 and d.is_enabled=1 
-group by substr(a.datekey,1,6),
+group by a.datekey,
         d.area_name_mp,
     d.province_name,
     d.city_name,
