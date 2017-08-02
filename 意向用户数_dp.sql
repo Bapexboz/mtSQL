@@ -1,4 +1,3 @@
---用户浏览几个POI几个deal的访购率（点评侧）-有问题需要修正
 select 
       ll.datekey,
       concat
@@ -23,8 +22,8 @@ from
                       count(distinct a.shop_id) as poi_nums
                   from ba_travel.topic_traffic_dp as a
                   where a.client_type in ('iphone','android')
-                      and a.datekey>='$begindatekey'
-                      and a.datekey<='$enddatekey'
+                      and a.datekey>='20170724'
+                      and a.datekey<='20170730'
                       and a.page_type='poidetail'
                   group by 
                       a.datekey,
@@ -37,12 +36,12 @@ from
                       a.dp_id,
                       count(distinct a.deal_id) as deal_nums,
                       0 as poi_nums
-                  from ba_travel.topic_traffic_mt as a
+                  from ba_travel.topic_traffic_dp as a
                      left join ba_travel.dim_deal as b
                         on a.deal_id = b.deal_id
                 where a.client_type in ('iphone','android')
-                    and a.datekey>='$begindatekey'
-                        and a.datekey<='$enddatekey'
+                    and a.datekey>='20170724'
+                        and a.datekey<='20170730'
                     and a.page_type in ('dealdetail','createorder')
                     and b.bu_code in  ('11020','11021','11022')
                 group by 
@@ -59,8 +58,8 @@ from
                  datekey,
                  dp_id
             from ba_travel.topic_order a
-            where datekey>='$begindatekey'
-                  and datekey<='$enddatekey'
+            where datekey>='20170724'
+                  and datekey<='20170730'
                   and sale_platform='dp'
                   and pay_amt>0
             group by 
