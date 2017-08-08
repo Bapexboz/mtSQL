@@ -4,9 +4,9 @@ select   DISTINCT
      aa.poi_id,
      aa.poi_name,
      ff.intention_uvNum,
- case when ee.user_type = 1 then 'purnew'
-  when ee.user_type = 2 then 'turnnew'
-  else 'old' end as user_type,
+ case when ee.user_type = 1 then '纯新'
+  when ee.user_type = 2 then '转新'
+  else '老客' end as user_type,
      ee.pay_userNum,
  ee.pay_order_num,
  ee.pay_amt,

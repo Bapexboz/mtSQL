@@ -5,9 +5,9 @@ select a.datekey,
       c.poi_id,--poiid
   c.poi_name,--poi名称
   c.type_name,--品类
-  case when newp.user_type = 1 then 'purenew'
-       when newp.user_type = 2 then 'turnnew'
-else 'old' end as user_type,
+  case when newp.user_type = 1 then '纯新'
+       when newp.user_type = 2 then '转新'
+else '老客' end as user_type,
   count(distinct a.pay_user_id) as `支付用户数`,
   sum(a.pay_quantity)as `支付券数`,
   count(distinct a.pay_order_id) as `支付订单数`,
@@ -50,6 +50,6 @@ group by a.datekey,
       c.poi_id,--poiid
   c.poi_name,--poi名称
   c.type_name,--品类
-  case when newp.user_type = 1 then 'purenew'
-       when newp.user_type = 2 then 'turnnew'
-else 'old' end
+  case when newp.user_type = 1 then '纯新'
+       when newp.user_type = 2 then '转新'
+else '老客' end

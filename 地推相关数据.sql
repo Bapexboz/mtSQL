@@ -9,9 +9,9 @@ select
      g.poi_id,
  g.poi_name,
      c.promoter_name,
- case when i.user_type = 1 then 'purenew'
-      when i.user_type = 2 then 'turnnew'
-  else 'old' end as user_type,
+ case when i.user_type = 1 then '纯新'
+      when i.user_type = 2 then '转新'
+  else '老客' end as user_type,
      count(distinct b.pay_order_id) as `支付订单数`,
      sum(b.pay_quantity) as `支付券量`,
  sum(b.pay_amt)as `支付GMV`,
@@ -51,6 +51,6 @@ group by
      g.poi_id,
  g.poi_name,
      c.promoter_name,
- case when i.user_type = 1 then 'purenew'
-      when i.user_type = 2 then 'turnnew'
-  else 'old' end
+ case when i.user_type = 1 then '纯新'
+      when i.user_type = 2 then '转新'
+  else '老客' end
