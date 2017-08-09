@@ -1,4 +1,5 @@
---POI&deal 矩阵（支付分新老客）-需修改
+
+--POI&deal 矩阵（支付分新老客）
 
 select 
       ll.datekey,
@@ -6,9 +7,9 @@ select
           (
              ll.deal_nums,'~',ll.poi_nums
            ) as deal_poi_nums,
-if(pay.user_type in (1,2),'新客','老客') as user_type,
       count(distinct ll.uuid) as `意向用户数`,
-      count(distinct pay.uuid) as `支付用户数`
+      count(distinct pay.uuid)- count(distinct pn.uuid) as `支付老客`,
+  count(distinct pn.uuid) as `支付新客`
 from 
   (
     select 
@@ -62,7 +63,7 @@ from
                  t.mt_uuid as uuid,
  xy.user_type
             from ba_travel.topic_order t
-left join (select distinct datekey, user_id, user_type
+join (select distinct datekey, user_id, user_type
           from ba_travel.fact_mt_sale_platform_new_pay_user
   where datekey between '$begindatekey' and '$enddatekey')xy on xy.datekey = t.datekey and xy.user_id = t.pay_mt_user_id
             where t.datekey>='$begindatekey'
@@ -73,11 +74,17 @@ left join (select distinct datekey, user_id, user_type
                   t.datekey,
                  t.mt_uuid,
  xy.user_type
-     )pay on(ll.datekey=pay.datekey and ll.uuid=pay.uuid)
+     )pn on(ll.datekey=pn.datekey and ll.uuid=pn.uuid)--支付新客
+ 
+ left outer join
+ (select datekey, mt_uuid as uuid
+ from ba_travel.topic_order
+ where datekey between '$begindatekey' and '$enddatekey'
+ and sale_platform='mt'
+ and pay_amt>0)pay on ll.datekey=pay.datekey and pay.uuid=ll.uuid--整体支付用户数
 group by 
       ll.datekey,
       concat
            (
              ll.deal_nums,'~',ll.poi_nums
-           ),
-if(pay.user_type in (1,2),'新客','老客')
+           )
