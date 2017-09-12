@@ -2,6 +2,7 @@ select
     partition_date,
     triggerid,
     bu_type,
+    if(channel='1','push','message') as channel,
     populationstrategy,
     copyid,
     send_num,
@@ -10,5 +11,5 @@ select
     order_uv,
     order_gmv
 from mart_semantic.aggr_realtime_delivery_daily
-where partition_date ='2017-08-21' and '2017-08-27'
+where partition_date between '$begindatekey' and '$enddatekey'
 and range='current'
