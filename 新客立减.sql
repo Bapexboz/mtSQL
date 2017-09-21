@@ -1,4 +1,4 @@
---新客立减SQL 
+--新客立减SQL，日期格式：YYYYMMDD
 
 select g.deal_id,
    g.poi_id,
