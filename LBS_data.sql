@@ -1,5 +1,6 @@
 select 
     partition_date,
+    city_name,
     triggerid,
     bu_type,
     if(channel='1','push','sms') as channel,
